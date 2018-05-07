@@ -12,11 +12,11 @@ if (!databaseUri) {
 }
 
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  databaseURI: databaseUri || 'mongodb://localhost:27017/evosfind',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'myAppId',
-  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+  appId: process.env.APP_ID || 'evosfind',
+  masterKey: process.env.MASTER_KEY || 'YVMu40nenWtAaJWekKUb', //Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/evosfind',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
@@ -31,7 +31,7 @@ var app = express();
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Serve the Parse API on the /parse URL prefix
-var mountPath = process.env.PARSE_MOUNT || '/parse';
+var mountPath = process.env.PARSE_MOUNT || '/evosfind';
 app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
@@ -45,7 +45,7 @@ app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
-var port = process.env.PORT || 1337;
+var port = process.env.PORT || 1336;
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.');
